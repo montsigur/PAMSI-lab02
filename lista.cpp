@@ -3,20 +3,20 @@ using namespace std;
 
 struct element_listy {
 
-  struct element_listy* nastepny;
+  element_listy* nastepny;
   int wartosc;
 
 };
 
-struct element_listy* stworzListe() {
+element_listy* stworzListe() {
 
   return NULL;
 
 }
 
-struct element_listy* stworzElement(int wartosc) {
+element_listy* stworzElement(int wartosc) {
 
-  struct element_listy* element = new struct element_listy;
+  element_listy* element = new element_listy;
   element->nastepny = NULL;
   element->wartosc = wartosc;
 
@@ -24,7 +24,7 @@ struct element_listy* stworzElement(int wartosc) {
   
 }
 
-bool czyJestPusta(struct element_listy* poczatek_listy) {
+bool czyJestPusta(element_listy* poczatek_listy) {
 
   if (poczatek_listy == NULL)
     return true;
@@ -34,10 +34,10 @@ bool czyJestPusta(struct element_listy* poczatek_listy) {
 
 }
 
-struct element_listy* usunZwrocOstatni(struct element_listy* &poczatek_listy) {
+element_listy* usunZwrocOstatni(element_listy* &poczatek_listy) {
 
-  struct element_listy* przedostatni;
-  struct element_listy* ostatni;
+  element_listy* przedostatni;
+  element_listy* ostatni;
 
   if (czyJestPusta(poczatek_listy)) {
     cout << "Blad. Lista jest pusta." << endl;
@@ -70,9 +70,9 @@ struct element_listy* usunZwrocOstatni(struct element_listy* &poczatek_listy) {
   }
 }
 
-struct element_listy* sprawdzZwrocOstatni(struct element_listy* poczatek_listy) {
+element_listy* sprawdzZwrocOstatni(element_listy* poczatek_listy) {
 
-  struct element_listy* ostatni = poczatek_listy;
+  element_listy* ostatni = poczatek_listy;
   
   if (czyJestPusta(poczatek_listy)) {
 
@@ -90,10 +90,10 @@ struct element_listy* sprawdzZwrocOstatni(struct element_listy* poczatek_listy) 
   }
 }
 
-void dodajNaPrzod(struct element_listy* &poczatek_listy,
-		  struct element_listy* element) {
+void dodajNaTyl(element_listy* &poczatek_listy,
+		  element_listy* element) {
 
-  struct element_listy* ostatni = poczatek_listy;
+  element_listy* ostatni = poczatek_listy;
 
   if (czyJestPusta(poczatek_listy))
     poczatek_listy = element;
@@ -106,11 +106,11 @@ void dodajNaPrzod(struct element_listy* &poczatek_listy,
   }
 }
 
-void usunWszystkie(struct element_listy* poczatek_listy) {
+void usunWszystkie(element_listy* poczatek_listy) {
 
   if (!czyJestPusta(poczatek_listy)) {
 
-    struct element_listy* element;
+    element_listy* element;
     
     while (poczatek_listy != NULL) {
       element = poczatek_listy;
@@ -123,16 +123,16 @@ void usunWszystkie(struct element_listy* poczatek_listy) {
 
 int main() {
 
-  struct element_listy* poczatek = stworzListe();
-  struct element_listy *a, *b, *c, *d;
+  element_listy* poczatek = stworzListe();
+  element_listy *a, *b, *c, *d;
 
   a = stworzElement(3);
   b = stworzElement(5);
   c = stworzElement(43);
 
-  dodajNaPrzod(poczatek, a);
-  dodajNaPrzod(poczatek, b);
-  dodajNaPrzod(poczatek, c);
+  dodajNaTyl(poczatek, a);
+  dodajNaTyl(poczatek, b);
+  dodajNaTyl(poczatek, c);
 
   d = usunZwrocOstatni(poczatek);
 

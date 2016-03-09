@@ -3,20 +3,20 @@ using namespace std;
 
 struct element_kolejki {
 
-  struct element_kolejki* nastepny;
+  element_kolejki* nastepny;
   int wartosc;
 
 };
 
-struct element_kolejki* stworzKolejke() {
+element_kolejki* stworzKolejke() {
 
   return NULL;
   
 }
 
-struct element_kolejki* stworzElement(int wartosc) {
+element_kolejki* stworzElement(int wartosc) {
 
-  struct element_kolejki* element = new struct element_kolejki;
+  element_kolejki* element = new element_kolejki;
   element->nastepny = NULL;
   element->wartosc = wartosc;
 
@@ -24,7 +24,7 @@ struct element_kolejki* stworzElement(int wartosc) {
   
 }
 
-bool czyJestPusta(struct element_kolejki* poczatek_kolejki) {
+bool czyJestPusta(element_kolejki* poczatek_kolejki) {
 
   if (poczatek_kolejki == NULL)
     return true;
@@ -34,13 +34,13 @@ bool czyJestPusta(struct element_kolejki* poczatek_kolejki) {
 
 }
 
-struct element_kolejki* usunZwrocPierwszy(struct element_kolejki* &poczatek_kolejki) {
+element_kolejki* usunZwrocPierwszy(element_kolejki* &poczatek_kolejki) {
 
-  struct element_kolejki* pierwszy;
+  element_kolejki* pierwszy;
   
   if (czyJestPusta(poczatek_kolejki)) {
     
-    cout << "Blad. Lista jest pusta." << endl;
+    cout << "Blad. Kolejka jest pusta." << endl;
     return poczatek_kolejki;
     
   }
@@ -54,7 +54,7 @@ struct element_kolejki* usunZwrocPierwszy(struct element_kolejki* &poczatek_kole
   }
 }
 
-struct element_kolejki* sprawdzZwrocPierwszy(struct element_kolejki* poczatek_kolejki) {
+element_kolejki* sprawdzZwrocPierwszy(element_kolejki* poczatek_kolejki) {
 
   if (czyJestPusta(poczatek_kolejki)) {
 
@@ -70,19 +70,27 @@ struct element_kolejki* sprawdzZwrocPierwszy(struct element_kolejki* poczatek_ko
   }
 }
 
-void dodajNaTyl(struct element_kolejki* &poczatek_kolejki,
-		struct element_kolejki* element) {
+void dodajNaTyl(element_kolejki* &poczatek_kolejki,
+		element_kolejki* element) {
 
-  element->nastepny = poczatek_kolejki;
-  poczatek_kolejki = element;
+  element_listy* ostatni = poczatek_listy;
+
+  if (czyJestPusta(poczatek_listy))
+    poczatek_listy = element;
   
+  else {
+    
+    while (ostatni->nastepny != NULL) { ostatni = ostatni->nastepny; }
+    ostatni->nastepny = element;
+    
+  }
 }
 
-void usunWszystkie(struct element_kolejki* poczatek_kolejki) {
+void usunWszystkie(element_kolejki* poczatek_kolejki) {
 
   if (!czyJestPusta(poczatek_kolejki)) {
 
-    struct element_kolejki* element;
+    element_kolejki* element;
     
     while (poczatek_kolejki != NULL) {
       element = poczatek_kolejki;
@@ -95,8 +103,8 @@ void usunWszystkie(struct element_kolejki* poczatek_kolejki) {
   
 int main() {
 
-  struct element_kolejki* poczatek = stworzKolejke();
-  struct element_kolejki *a, *b, *c, *d;
+  element_kolejki* poczatek = stworzKolejke();
+  element_kolejki *a, *b, *c, *d;
 
   a = stworzElement(3);
   b = stworzElement(5);
