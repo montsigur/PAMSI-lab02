@@ -6,19 +6,15 @@ int main() {
 
   lista l1;
   kolejka k1;
-  string dane;
   element* elem;
 
-  dane = "elem1";
-  elem = new element(dane);
+  elem = new element(5);
   l1.dodaj(elem);
 
-  dane = "elem2";
-  elem = new element(elem);
+  elem = new element(7);
   l1.dodaj(elem);
 
-  dane = "elem3";
-  elem = new element(elem);
+  elem = new element(78);
   l1.dodaj(elem);
 
   l1.zdejmij();

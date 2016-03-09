@@ -7,9 +7,9 @@ using namespace std;
 struct element {
 
   element* nastepny;
-  string dane;
+  int dane;
 
-  element(string dane_pocz) { nastepny = NULL; dane = dane_pocz; }
+  element(int dane_pocz) { nastepny = NULL; dane = dane_pocz; }
   element() { nastepny = NULL; }
   
 };

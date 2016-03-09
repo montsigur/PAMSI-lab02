@@ -9,7 +9,9 @@ deque::~deque() {
 
 }
 
-void deque::dodajNaPoczatek(element* elem);
+void deque::dodajNaPoczatek(element* elem) {
+  ;
+}
 
 void deque::dodajNaKoniec(element* elem) {
 
@@ -26,7 +28,22 @@ void deque::dodajNaKoniec(element* elem) {
   }
 }
 
-element* deque::sprawdzPoczatek();
+element* deque::sprawdzPoczatek() {
+
+ element* ostatni = poczatek;
+  
+  if (pusta())
+    cout << "Lista jest pusta.";
+
+  else {
+
+    while (ostatni->nastepny != NULL) { ostatni = ostatni->nastepny; }
+
+  }
+  
+  return ostatni;
+
+}
 
 element* deque::sprawdzKoniec() {
 

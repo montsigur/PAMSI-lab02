@@ -31,6 +31,8 @@ private:
 
   element* poczatek;
 
+  element* koniec;
+
 };
 
 #endif
