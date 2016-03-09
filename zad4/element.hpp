@@ -1,13 +1,15 @@
 #ifndef ELEMENT_HPP
 #define ELEMENT_HPP
 #include <iostream>
+#include <string>
+using namespace std;
 
 struct element {
 
   element* nastepny;
-  int wartosc;
+  string dane;
 
-  element(int wart_pocz) { nastepny = NULL; wartosc = wart_pocz; }
+  element(string dane_pocz) { nastepny = NULL; dane = dane_pocz; }
   element() { nastepny = NULL; }
   
 };
