@@ -7,17 +7,22 @@ int main() {
   lista l1;
   kolejka k1;
   element* elem;
+  string dane("ciag1");
 
-  elem = new element(5);
+  elem = new element(dane);
+  cout << "done" << endl;
   l1.dodaj(elem);
 
-  elem = new element(65);
+  dane = string("ciag2");
+  elem = new element(dane);
   l1.dodaj(elem);
 
-  elem = new element(5323);
+  dane = string("ciag3");
+  elem = new element(dane);
   l1.dodaj(elem);
 
   l1.zdejmij();
+  cout << "done" << endl;
   l1.zdejmij();
   l1.zdejmij();
   elem = l1.zdejmij();
