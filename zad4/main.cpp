@@ -10,7 +10,6 @@ int main() {
   string dane("ciag1");
 
   elem = new element(dane);
-  cout << "done" << endl;
   l1.dodaj(elem);
 
   dane = string("ciag2");
@@ -22,7 +21,6 @@ int main() {
   l1.dodaj(elem);
 
   l1.zdejmij();
-  cout << "done" << endl;
   l1.zdejmij();
   l1.zdejmij();
   elem = l1.zdejmij();
