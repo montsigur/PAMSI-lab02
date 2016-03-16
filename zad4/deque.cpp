@@ -3,104 +3,142 @@ using namespace std;
 
 deque::deque() {
 
+  poczatek = koniec = NULL;
+
 }
 
 deque::~deque() {
 
+  wyczysc();
+
 }
 
 void deque::dodajNaPoczatek(element* elem) {
-  ;
+
+  if (pusta())
+    poczatek = koniec = elem;
+
+  else {
+
+    elem->nastepny = poczatek;
+    elem->poprzedni = NULL;
+    poczatek = elem;
+
+  }
 }
 
 void deque::dodajNaKoniec(element* elem) {
 
-  element* ostatni = poczatek;
-
   if (pusta())
-    poczatek = elem;
+    poczatek = koniec = elem;
 
   else {
 
-    while (ostatni->nastepny != NULL) { ostatni = ostatni->nastepny; }
-    ostatni->nastepny = elem;
-    
+    elem->poprzedni = koniec;
+    elem->nastepny = NULL;
+    koniec = elem;
+
   }
 }
 
 element* deque::sprawdzPoczatek() {
 
- element* ostatni = poczatek;
-  
   if (pusta())
-    cout << "Lista jest pusta.";
-
-  else {
-
-    while (ostatni->nastepny != NULL) { ostatni = ostatni->nastepny; }
-
-  }
+    throw DequeEmptyException;
   
-  return ostatni;
+  return poczatek;
 
 }
 
 element* deque::sprawdzKoniec() {
 
- element* ostatni = poczatek;
-  
   if (pusta())
-    cout << "Lista jest pusta.";
-
-  else {
-
-    while (ostatni->nastepny != NULL) { ostatni = ostatni->nastepny; }
-
-  }
+    throw DequeEmptyException;
   
-  return ostatni;
+  return koniec;
 
 }
 
-element* deque::zdejmijPoczatek();
+element* deque::zdejmijPoczatek() {
+
+  element* elem;
+
+  if (pusta()) {
+
+    cout << "Blad. Lista jest pusta." << endl;
+    return poczatek;
+
+  }
+
+  else {
+
+    elem = poczatek;
+    poczatek = poczatek->nastepny;
+    return elem;
+
+  }
+}
 
 element* deque::zdejmijKoniec() {
 
-  element* przedostatni;
-  element* ostatni;
+  element* elem;
 
   if (pusta()) {
+
     cout << "Blad. Lista jest pusta." << endl;
-    return poczatek;
-  }
+    return koniec;
 
-  else if (poczatek->nastepny == NULL) {
-
-    ostatni = poczatek;
-    poczatek = NULL;
-    return ostatni;
-    
   }
 
   else {
 
-    przedostatni = poczatek;
-    
-    while (przedostatni->nastepny->nastepny != NULL) {
-      
-      przedostatni = przedostatni->nastepny;
-
-    }
-
-    ostatni = przedostatni->nastepny;
-    przedostatni->nastepny = NULL;
-
-    return ostatni;
+    elem = koniec;
+    koniec = koniec->poprzedni;
+    return elem;
 
   }
 }
 
-bool deque::pusta();
+bool deque::pusta() {
 
-void deque::wyczysc();
+  if (poczatek == NULL)
+    return true;
 
+  else
+    return false;
+
+}
+
+void deque::wyczysc() {
+
+  element* elem;
+
+  if (!pusta()) {
+
+    while (poczatek != NULL) {
+
+      elem = poczatek;
+      poczatek = poczatek->nastepny;
+      delete elem;
+
+    }
+  }
+}
+
+int deque::rozmiar() {
+
+  int ilosc = 0;
+  element* iterator = poczatek;
+
+  if (pusta())
+    return 0;
+
+  while(iterator->nastepny != NULL) {
+
+    ilosc++;
+    iterator = iterator->nastepny;
+
+  }
+
+  return ilosc;
+}

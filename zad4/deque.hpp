@@ -1,6 +1,8 @@
 #ifndef DEQUE_HPP
 #define DEQUE_HPP
 #include <iostream>
+#include "DequeEmptyException.hpp"
+#include "element.hpp"
 using namespace std;
 
 class deque {
@@ -27,10 +29,11 @@ public:
 
   void wyczysc();
 
+  int rozmiar();
+
 private:
 
   element* poczatek;
-
   element* koniec;
 
 };
