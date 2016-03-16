@@ -3,7 +3,7 @@ using namespace std;
 
 kolejka::kolejka() {
 
-  poczatek = NULL;
+  poczatek = koniec = NULL;
   
 }
 
@@ -43,15 +43,17 @@ void kolejka::wyczysc() {
 
 void kolejka::dodaj(element* elem) {
 
-  element* ostatni = poczatek;
+  if (pusta()) {
 
-  if (pusta())
     poczatek = elem;
-
+    koniec = elem;
+    
+  }
+  
   else {
 
-    while (ostatni->nastepny != NULL) { ostatni = ostatni->nastepny; }
-    ostatni->nastepny = elem;
+    koniec->nastepny = elem;
+    koniec = elem;
     
   }
 }
@@ -83,4 +85,23 @@ element* kolejka::zdejmij() {
     return pierwszy;
     
   }
+}
+
+int kolejka::rozmiar() {
+
+  element* iterator = poczatek;
+  int ilosc = 0;
+
+  if (pusta())
+    return 0;
+  
+  do {
+
+    ilosc++;
+    iterator = iterator->nastepny;
+
+  } while(iterator != koniec);
+
+  return ilosc;
+
 }

@@ -20,9 +20,12 @@ public:
 
   void wyczysc();
 
+  int rozmiar();
+
 private:
 
   element* poczatek;
+  element* koniec;
 };
 
 #endif

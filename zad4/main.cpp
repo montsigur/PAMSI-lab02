@@ -7,8 +7,8 @@ int main() {
   lista l1;
   kolejka k1;
   element* elem;
+  
   string dane("ciag1");
-
   elem = new element(dane);
   l1.dodaj(elem);
 

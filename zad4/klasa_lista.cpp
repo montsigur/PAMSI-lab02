@@ -3,7 +3,7 @@ using namespace std;
 
 lista::lista() {
 
-  poczatek = NULL;
+  poczatek = koniec = NULL;
   
 }
 
@@ -15,7 +15,7 @@ lista::~lista() {
 
 bool lista::pusta() {
 
-  if (poczatek == NULL)
+  if (koniec == NULL)
     return true;
 
   else
@@ -29,12 +29,12 @@ void lista::wyczysc() {
   
   if (!pusta()) {
 
-    elem = poczatek;
+    elem = koniec;
     
-    while (poczatek != NULL) {
+    while (koniec != NULL) {
 
-      elem = poczatek;
-      poczatek = poczatek->nastepny;
+      elem = koniec;
+      poczatek = koniec->poprzedni;
       delete elem;
       
     }
@@ -43,68 +43,60 @@ void lista::wyczysc() {
 
 void lista::dodaj(element* elem) {
 
-  element* ostatni = poczatek;
-
   if (pusta())
-    poczatek = elem;
+    poczatek = koniec = elem;
 
   else {
 
-    while (ostatni->nastepny != NULL) { ostatni = ostatni->nastepny; }
-    ostatni->nastepny = elem;
+    elem->poprzedni = koniec;
+    koniec = elem;
     
   }
 }
 
 element* lista::sprawdz() {
 
-  element* ostatni = poczatek;
-  
   if (pusta())
     cout << "Lista jest pusta.";
-
-  else {
-
-    while (ostatni->nastepny != NULL) { ostatni = ostatni->nastepny; }
-
-  }
   
-  return ostatni;
-  
+  return koniec;
 }
 
 element* lista::zdejmij() {
 
-  element* przedostatni;
   element* ostatni;
 
   if (pusta()) {
+    
     cout << "Blad. Lista jest pusta." << endl;
-    return poczatek;
-  }
-
-  else if (poczatek->nastepny == NULL) {
-
-    ostatni = poczatek;
-    poczatek = NULL;
-    return ostatni;
+    return koniec;
     
   }
 
   else {
 
-    przedostatni = poczatek;
-    
-    while (przedostatni->nastepny->nastepny != NULL) {
-      
-      przedostatni = przedostatni->nastepny;
-
-    }
-
-    ostatni = przedostatni->nastepny;
-    przedostatni->nastepny = NULL;
-
+    ostatni = koniec;
+    koniec = koniec->poprzedni;
     return ostatni;
-
+    
   }
+}
+
+int lista::rozmiar() {
+
+  element* iterator = koniec;
+  int ilosc = 0;
+
+  if (pusta())
+    return 0;
+  
+  do {
+
+    ilosc++;
+    iterator = iterator->poprzedni;
+
+  } while(iterator->poprzedni != poczatek);
+
+  return ilosc;
+
 }
