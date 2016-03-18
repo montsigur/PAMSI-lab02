@@ -22,6 +22,8 @@ public:
 
   int rozmiar();
 
+  bool zawiera_wartosc(string wartosc);
+
 private:
 
   element* poczatek;

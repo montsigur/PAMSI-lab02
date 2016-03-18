@@ -77,6 +77,7 @@ element* lista::zdejmij() {
 
     ostatni = koniec;
     koniec = koniec->poprzedni;
+    ostatni->poprzedni = NULL;
     return ostatni;
     
   }
@@ -90,7 +91,7 @@ int lista::rozmiar() {
   if (pusta())
     return 0;
   
-  while(iterator->poprzedni != poczatek) {
+  while(iterator != NULL) {
 
     ilosc++;
     iterator = iterator->poprzedni;

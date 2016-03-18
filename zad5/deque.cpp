@@ -15,12 +15,18 @@ deque::~deque() {
 
 void deque::dodajNaPoczatek(element* elem) {
 
-  if (pusta())
-    poczatek = koniec = elem;
+  if (pusta()) {
 
+    poczatek = koniec = elem;
+    elem->poprzedni = NULL;
+    elem->nastepny = NULL;
+
+  }
+  
   else {
 
     elem->nastepny = poczatek;
+    elem->nastepny->poprzedni = elem;
     elem->poprzedni = NULL;
     poczatek = elem;
 
@@ -29,12 +35,18 @@ void deque::dodajNaPoczatek(element* elem) {
 
 void deque::dodajNaKoniec(element* elem) {
 
-  if (pusta())
+  if (pusta()) {
+    
     poczatek = koniec = elem;
+    elem->poprzedni = NULL;
+    elem->nastepny = NULL;
+    
+  }
 
   else {
 
     elem->poprzedni = koniec;
+    elem->poprzedni->nastepny = elem;
     elem->nastepny = NULL;
     koniec = elem;
 
@@ -43,18 +55,30 @@ void deque::dodajNaKoniec(element* elem) {
 
 element* deque::sprawdzPoczatek() {
 
-  if (pusta())
-    throw DequeEmptyException;
+  try {
   
+    if (pusta())
+      throw DequeEmptyException();
+    
+  }
+
+  catch (exception& blad) { cout << blad.what() << endl; }
+
   return poczatek;
 
 }
 
 element* deque::sprawdzKoniec() {
 
-  if (pusta())
-    throw DequeEmptyException;
+  try {
   
+    if (pusta())
+      throw DequeEmptyException();
+    
+  }
+
+  catch (exception& blad) { cout << blad.what() << endl; }
+    
   return koniec;
 
 }
@@ -63,18 +87,24 @@ element* deque::zdejmijPoczatek() {
 
   element* elem;
 
-  if (pusta()) {
+  try {
+  
+    if (pusta())
+      throw DequeEmptyException();
 
-    cout << "Blad. Lista jest pusta." << endl;
-    return poczatek;
+    else {
 
+      elem = poczatek;
+      poczatek = poczatek->nastepny;
+      return elem;
+      
+    }
   }
 
-  else {
+  catch (exception& blad) {
 
-    elem = poczatek;
-    poczatek = poczatek->nastepny;
-    return elem;
+    cout << blad.what() << endl;
+    return koniec;
 
   }
 }
@@ -83,19 +113,25 @@ element* deque::zdejmijKoniec() {
 
   element* elem;
 
-  if (pusta()) {
+  try {
+  
+    if (pusta())
+      throw DequeEmptyException();
 
-    cout << "Blad. Lista jest pusta." << endl;
-    return koniec;
+    else {
 
+      elem = koniec;
+      koniec = koniec->poprzedni;
+      return elem;
+      
+    }
   }
 
-  else {
+  catch (exception& blad) {
 
-    elem = koniec;
-    koniec = koniec->poprzedni;
-    return elem;
-
+    cout << blad.what() << endl;
+    return koniec;
+    
   }
 }
 
@@ -133,7 +169,7 @@ int deque::rozmiar() {
   if (pusta())
     return 0;
 
-  while(iterator->nastepny != NULL) {
+  while(iterator != NULL) {
 
     ilosc++;
     iterator = iterator->nastepny;

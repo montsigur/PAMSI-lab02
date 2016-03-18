@@ -34,59 +34,48 @@ bool czyJestPusta(element_kolejki* poczatek_kolejki) {
 
 }
 
-element_kolejki* usunZwrocPierwszy(element_kolejki* &poczatek_kolejki) {
+element_kolejki* usunZwrocPierwszy(element_kolejki* &poczatek_kolejki,
+				   element_kolejki* &koniec_kolejki) {
 
-  element_kolejki* pierwszy;
+  element_kolejki* pierwszy = poczatek_kolejki;
   
-  if (czyJestPusta(poczatek_kolejki)) {
-    
+  if (czyJestPusta(poczatek_kolejki))    
     cout << "Blad. Kolejka jest pusta." << endl;
-    return poczatek_kolejki;
-    
-  }
 
-  else {
+  else if (poczatek_kolejki == koniec_kolejki)
+    poczatek_kolejki = koniec_kolejki = NULL;
 
-    pierwszy = poczatek_kolejki;
+  else
     poczatek_kolejki = poczatek_kolejki->nastepny;
-    return pierwszy;
 
-  }
+  return pierwszy;
 }
 
 element_kolejki* sprawdzZwrocPierwszy(element_kolejki* poczatek_kolejki) {
 
-  if (czyJestPusta(poczatek_kolejki)) {
-
+  if (czyJestPusta(poczatek_kolejki))
     cout << "Kolejka jest pusta.";
-    return NULL;
-    
-  }
 
-  else {
-
-    return poczatek_kolejki;
-    
-  }
+  return poczatek_kolejki;
 }
 
-void dodajNaTyl(element_kolejki* &poczatek_kolejki,
-		element_kolejki* element) {
+void dodajNaKoniec(element_kolejki* &poczatek_kolejki,
+		   element_kolejki* &koniec_kolejki,
+		   element_kolejki* element) {
 
-  element_listy* ostatni = poczatek_listy;
-
-  if (czyJestPusta(poczatek_listy))
-    poczatek_listy = element;
+  if (czyJestPusta(poczatek_kolejki))
+    poczatek_kolejki = koniec_kolejki = element;
   
   else {
-    
-    while (ostatni->nastepny != NULL) { ostatni = ostatni->nastepny; }
-    ostatni->nastepny = element;
+
+    koniec_kolejki->nastepny = element;
+    element->nastepny = NULL;
+    koniec_kolejki = element;
     
   }
 }
 
-void usunWszystkie(element_kolejki* poczatek_kolejki) {
+void usunWszystkie(element_kolejki* &poczatek_kolejki) {
 
   if (!czyJestPusta(poczatek_kolejki)) {
 
@@ -104,17 +93,18 @@ void usunWszystkie(element_kolejki* poczatek_kolejki) {
 int main() {
 
   element_kolejki* poczatek = stworzKolejke();
+  element_kolejki* koniec = poczatek;
   element_kolejki *a, *b, *c, *d;
 
   a = stworzElement(3);
   b = stworzElement(5);
   c = stworzElement(43);
 
-  dodajNaTyl(poczatek, a);
-  dodajNaTyl(poczatek, b);
-  dodajNaTyl(poczatek, c);
+  dodajNaKoniec(poczatek, koniec, a);
+  dodajNaKoniec(poczatek, koniec, b);
+  dodajNaKoniec(poczatek, koniec, c);
 
-  d = usunZwrocPierwszy(poczatek);
+  d = usunZwrocPierwszy(poczatek, koniec);
 
   cout << d->wartosc << endl;
 

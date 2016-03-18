@@ -82,6 +82,7 @@ element* kolejka::zdejmij() {
 
     pierwszy = poczatek;
     poczatek = poczatek->nastepny;
+    pierwszy->nastepny = NULL;
     return pierwszy;
     
   }
@@ -95,7 +96,7 @@ int kolejka::rozmiar() {
   if (pusta())
     return 0;
   
-  while(iterator->nastepny != NULL) {
+  while(iterator != NULL) {
 
     ilosc++;
     iterator = iterator->nastepny;
@@ -104,4 +105,21 @@ int kolejka::rozmiar() {
 
   return ilosc;
 
+}
+
+bool kolejka::zawiera_wartosc(string wartosc) {
+
+  element* iter = poczatek;
+
+  while (iter != NULL) {
+
+    if (iter->wartosc == wartosc)
+      return true;
+
+    iter = iter->nastepny;
+    
+  }
+
+  return false;
+  
 }

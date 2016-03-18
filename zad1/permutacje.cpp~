@@ -1,5 +1,5 @@
 #include <string>
-#include "zad4/klasa_kolejka.hpp"
+#include "../zad4/kolejka.hpp"
 using namespace std;
 
 // Przy pierwszym wywolaniu funkcji n to dlugosc ciagu znakow
