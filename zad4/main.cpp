@@ -92,6 +92,7 @@ int main() {
 
     case 11:
       cout << menu;
+      break;
 
     case 0:
       break;
