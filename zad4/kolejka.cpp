@@ -58,6 +58,26 @@ void kolejka::dodaj(element* elem) {
   }
 }
 
+void kolejka::zawartosc() {
+
+  element* iterator = poczatek;
+  
+  if (pusta())
+    cout << "Blad. Kolejka jest pusta." << endl;
+
+  else {
+
+    cout << "Zawartosc kolejki:" << endl;
+    
+    while (iterator != NULL) {
+
+      cout << iterator->wartosc << endl;
+      iterator = iterator->nastepny;      
+      
+    }
+  }
+}
+
 element* kolejka::sprawdz() {
 
   if (pusta())

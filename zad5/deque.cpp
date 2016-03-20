@@ -92,10 +92,20 @@ element* deque::zdejmijPoczatek() {
     if (pusta())
       throw DequeEmptyException();
 
+    else if (rozmiar() == 1) {
+
+      elem = poczatek;
+      poczatek = koniec = NULL;
+      return elem;
+      
+    }
+
     else {
 
       elem = poczatek;
       poczatek = poczatek->nastepny;
+      elem->nastepny->poprzedni = NULL;
+      elem->nastepny = NULL;
       return elem;
       
     }
@@ -104,7 +114,7 @@ element* deque::zdejmijPoczatek() {
   catch (exception& blad) {
 
     cout << blad.what() << endl;
-    return koniec;
+    return poczatek;
 
   }
 }
@@ -118,10 +128,20 @@ element* deque::zdejmijKoniec() {
     if (pusta())
       throw DequeEmptyException();
 
+    else if (rozmiar() == 1) {
+
+      elem = koniec;
+      poczatek = koniec = NULL;
+      return elem;
+      
+    }
+    
     else {
 
       elem = koniec;
       koniec = koniec->poprzedni;
+      elem->poprzedni->nastepny = NULL;
+      elem->poprzedni = NULL;
       return elem;
       
     }
@@ -177,4 +197,26 @@ int deque::rozmiar() {
   }
 
   return ilosc;
+}
+
+void deque::zawartosc() {
+
+  element* iterator = poczatek;
+
+  try {
+  
+    if (pusta())
+      throw DequeEmptyException();
+
+    cout << "Zawartosc listy:" << endl;
+    
+    while(iterator != NULL) {
+      
+      cout << iterator->wartosc << endl;
+      iterator = iterator->nastepny;
+      
+    }
+  }
+
+  catch (exception &blad) { cout << blad.what() << endl; }
 }

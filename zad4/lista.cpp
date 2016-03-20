@@ -34,7 +34,7 @@ void lista::wyczysc() {
     while (koniec != NULL) {
 
       elem = koniec;
-      poczatek = koniec->poprzedni;
+      koniec = koniec->poprzedni;
       delete elem;
       
     }
@@ -51,6 +51,26 @@ void lista::dodaj(element* elem) {
     elem->poprzedni = koniec;
     koniec = elem;
     
+  }
+}
+
+void lista::zawartosc() {
+
+  element* iterator = koniec;
+  
+  if (pusta())
+    cout << "Blad. Lista jest pusta." << endl;
+
+  else {
+
+    cout << "Zawartosc listy:" << endl;
+    
+    while (iterator != NULL) {
+
+      cout << iterator->wartosc << endl;
+      iterator = iterator->poprzedni;      
+      
+    }
   }
 }
 

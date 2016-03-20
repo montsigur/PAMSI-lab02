@@ -1,10 +1,11 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 struct element_listy {
 
-  element_listy* nastepny;
-  int wartosc;
+  element_listy* poprzedni;
+  string wartosc;
 
 };
 
@@ -14,19 +15,19 @@ element_listy* stworzListe() {
 
 }
 
-element_listy* stworzElement(int wartosc) {
+element_listy* stworzElement(string wartosc) {
 
   element_listy* element = new element_listy;
-  element->nastepny = NULL;
+  element->poprzedni = NULL;
   element->wartosc = wartosc;
 
   return element;
   
 }
 
-bool czyJestPusta(element_listy* poczatek_listy) {
+bool czyJestPusta(element_listy* koniec_listy) {
 
-  if (poczatek_listy == NULL)
+  if (koniec_listy == NULL)
     return true;
 
   else
@@ -34,84 +35,170 @@ bool czyJestPusta(element_listy* poczatek_listy) {
 
 }
 
-element_listy* usunZwrocPierwszy(element_listy* &poczatek_listy) {
+element_listy* usunZwrocOstatni(element_listy* &koniec_listy) {
 
-  element_listy* pierwszy = poczatek_listy;
+  element_listy* ostatni = koniec_listy;
 
-  if (czyJestPusta(poczatek_listy))
+  if (czyJestPusta(koniec_listy))
     cout << "Blad. Lista jest pusta." << endl;
 
-  else
-    poczatek_listy = poczatek_listy->nastepny;
-
-  return pierwszy;
-}
-
-element_listy* sprawdzZwrocPierwszy(element_listy* poczatek_listy) {
-  
-  if (czyJestPusta(poczatek_listy))
-    cout << "Lista jest pusta.";
-
-  return poczatek_listy;
-
-}
-
-void dodajNaPoczatek(element_listy* &poczatek_listy,
-		     element_listy* element) {
-
-  if (czyJestPusta(poczatek_listy)) {
+  else {
     
-    poczatek_listy = element;
-    element->nastepny = NULL;
+    koniec_listy = koniec_listy->poprzedni;
+    ostatni->poprzedni = NULL;
+    
+  }
+
+  return ostatni;
+}
+
+void wyswietlZawartosc(element_listy* &koniec_listy) {
+
+  element_listy* elem = koniec_listy;
+
+  if (czyJestPusta(koniec_listy))
+    cout << "Blad. Lista jest pusta." << endl;
+
+  else {
+
+    cout << "Zawartosc listy:" << endl;
+    
+    while (elem != NULL) {
+
+      cout << elem->wartosc << endl;
+      elem = elem->poprzedni;
+      
+    }
+  }
+
+}
+
+void dodajNaKoniec(element_listy* &koniec_listy,
+		   element_listy* element) {
+
+  if (czyJestPusta(koniec_listy)) {
+    
+    koniec_listy = element;
+    element->poprzedni = NULL;
 
   }
 
   else {
 
-    element->nastepny = poczatek_listy;
-    poczatek_listy = element;
+    element->poprzedni = koniec_listy;
+    koniec_listy = element;
     
   }
 }
 
-void usunWszystkie(element_listy* &poczatek_listy) {
+void usunWszystkie(element_listy* &koniec_listy) {
 
-  if (!czyJestPusta(poczatek_listy)) {
+  if (!czyJestPusta(koniec_listy)) {
 
     element_listy* element;
     
-    while (poczatek_listy != NULL) {
-      element = poczatek_listy;
-      poczatek_listy = poczatek_listy->nastepny;
+    while (koniec_listy != NULL) {
+      element = koniec_listy;
+      koniec_listy = koniec_listy->poprzedni;
       delete element;
       
     }
   }
 }
 
+
+int rozmiar(element_listy* koniec_listy) {
+
+  int ilosc = 0;
+  element_listy* iterator = koniec_listy;
+
+  if (czyJestPusta(koniec_listy))
+    return 0;
+
+  else {
+
+    while (iterator != NULL) {
+      
+      ilosc++;
+      iterator = iterator->poprzedni;
+      
+    }
+  }
+
+  return ilosc;
+}
+
+
 int main() {
 
-  element_listy* poczatek = stworzListe();
-  element_listy *a, *b, *c, *d;
+  element_listy* koniec = stworzListe();
+  element_listy *elem;
 
-  a = stworzElement(3);
-  b = stworzElement(5);
-  c = stworzElement(43);
+  string dane;
+  int wybor = -1;
 
-  dodajNaPoczatek(poczatek, a);
-  dodajNaPoczatek(poczatek, b);
-  dodajNaPoczatek(poczatek, c);
+  string menu = "\t################# MENU #################\n\
+\t1 - dodaj na poczatek listy\n\
+\t2 - wyswietl zawartosc listy\n\
+\t3 - zdejmij i wyswietl poczatek listy\n\
+\t4 - sprawdz rozmiar listy\n\
+\t5 - wyczysc liste\n\
+\t6 - wyswietl menu\n\
+\t0 - wyjscie z programu\n";
 
-  d = usunZwrocPierwszy(poczatek);
+  cout << endl << menu;
+  
+  while (wybor != 0) {
 
-  cout << d->wartosc << endl;
+    cout << endl << "Wybor (6 - wyswietl menu): ";
 
-  delete d;
-  d = sprawdzZwrocPierwszy(poczatek);
+    cin >> wybor;
+    cout << endl;
 
-  cout << d->wartosc << endl;
+    switch(wybor) {
 
-  usunWszystkie(poczatek);
+    case 1:
+      cout << "Dane: ";
+      cin >> dane;
+      elem = stworzElement(dane);
+      dodajNaKoniec(koniec, elem);
+      elem = NULL;
+      break;
+      
+    case 2:
+      wyswietlZawartosc(koniec);
+      break;
+
+    case 3:
+      elem = usunZwrocOstatni(koniec);
+      if (elem != NULL)
+	cout << "Zwrocona wartosc z listy: " << elem->wartosc << endl;
+      break;
+      
+    case 4:
+      cout << "Rozmiar listy: " << rozmiar(koniec) << endl;
+      break;
+      
+    case 5:
+      usunWszystkie(koniec);
+      break;
+
+    case 6:
+      cout << menu;
+      break;
+
+    case 0:
+      break;
+      
+    default:
+      cout << "Nieznana opcja" << endl;
+      break;
+
+    }     
+  }
+
+  if (elem != NULL)
+    delete elem;
   
   return 0;
 }

@@ -6,54 +6,102 @@ int main() {
 
   lista l1;
   kolejka k1;
-  element* elem;
-  
-  string dane("ciag1");
-  elem = new element(dane);
-  k1.dodaj(elem);
-  
-  dane = string("ciag2");
-  elem = new element(dane);
-  k1.dodaj(elem);
+  element* elem = NULL;
+  string dane;
+  int wybor = -1;
 
-  dane = string("ciag3");
-  elem = new element(dane);
-  k1.dodaj(elem);
+  string menu = "\t################# MENU #################\n\
+\t 1 - dodaj na poczatek listy\n\
+\t 2 - wyswietl zawartosc listy\n\
+\t 3 - zdejmij i wyswietl poczatek listy\n\
+\t 4 - sprawdz rozmiar listy\n\
+\t 5 - wyczysc liste\n\n\
+\t 6 - dodaj na poczatek kolejki\n\
+\t 7 - wyswietl zawartosc kolejki\n\
+\t 8 - zdejmij i wyswietl poczatek kolejki\n\
+\t 9 - sprawdz rozmiar kolejki\n\
+\t10 - wyczysc kolejke\n\n\
+\t11 - wyswietl menu\n\
+\t 0 - wyjscie z programu\n";
 
-  elem = k1.zdejmij();
-  cout << elem->wartosc << endl;
-  elem = k1.zdejmij();
-  cout << elem->wartosc << endl;
-  elem = k1.zdejmij();
-  cout << elem->wartosc << endl;
+  cout << endl << menu;
   
-  //cout << elem->wartosc << endl;
+  while (wybor != 0) {
 
-  delete elem;
-  
+    cout << endl << "Wybor (11 - wyswietl menu): ";
 
-  dane = string("ciag1");
-  elem = new element(dane);
-  l1.dodaj(elem);
-  
-  dane = string("ciag2");
-  elem = new element(dane);
-  l1.dodaj(elem);
+    cin >> wybor;
+    cout << endl;
 
-  dane = string("ciag3");
-  elem = new element(dane);
-  l1.dodaj(elem);
+    switch(wybor) {
 
-  elem = l1.zdejmij();
-  cout << elem->wartosc << endl;
-  elem = l1.zdejmij();
-  cout << elem->wartosc << endl;
-  elem = l1.zdejmij();
-  cout << elem->wartosc << endl;
-  
-  //cout << elem->wartosc << endl;
+    case 1:
+      cout << "Dane: ";
+      cin >> dane;
+      elem = new element(dane);
+      l1.dodaj(elem);
+      elem = NULL;
+      break;
+      
+    case 2:
+      l1.zawartosc();
+      break;
 
-  delete elem;
-  
+    case 3:
+      elem = l1.zdejmij();
+      if (elem != NULL)
+	cout << "Zwrocona wartosc z listy: " << elem->wartosc << endl;
+      break;
+      
+    case 4:
+      cout << "Rozmiar listy: " << l1.rozmiar() << endl;
+      break;
+      
+    case 5:
+      l1.wyczysc();
+      break;
+      
+    case 6:
+      cout << "Dane: ";
+      cin >> dane;
+      elem = new element(dane);
+      k1.dodaj(elem);
+      elem = NULL;
+      break;
+      
+    case 7:
+      k1.zawartosc();
+      break;
+
+    case 8:
+      elem = k1.zdejmij();
+      if (elem != NULL)
+	cout << "Zwrocona wartosc z kolejki: " << elem->wartosc << endl;
+      break;
+      
+    case 9:
+      cout << "Rozmiar kolejki: " << k1.rozmiar() << endl;
+      break;
+      
+    case 10:
+      k1.wyczysc();
+      break;
+
+    case 11:
+      cout << menu;
+
+    case 0:
+      break;
+      
+    default:
+      cout << "Nieznana opcja" << endl;
+      break;
+
+    }     
+  }
+
+  if (elem != NULL)
+    delete elem;
+ 
   return 0;
 }

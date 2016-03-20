@@ -22,6 +22,8 @@ public:
 
   int rozmiar();
 
+  void zawartosc();
+
 private:
 
   element* poczatek;

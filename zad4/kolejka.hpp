@@ -24,6 +24,8 @@ public:
 
   bool zawiera_wartosc(string wartosc);
 
+  void zawartosc();
+  
 private:
 
   element* poczatek;
