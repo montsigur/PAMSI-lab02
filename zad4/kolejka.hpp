@@ -1,3 +1,6 @@
+// Wojciech Michałowski
+// nr albumu 218705
+
 #ifndef KOLEJKA_HPP
 #define KOLEJKA_HPP
 #include "element.hpp"

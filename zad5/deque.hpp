@@ -1,3 +1,6 @@
+// Wojciech Michałowski
+// nr albumu 218705
+
 #ifndef DEQUE_HPP
 #define DEQUE_HPP
 #include <iostream>

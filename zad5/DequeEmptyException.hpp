@@ -1,3 +1,6 @@
+// Wojciech Michałowski
+// nr albumu 218705
+
 #ifndef DEQUEEMPTYEXCEPTION_HPP
 #define DEQUEEMPTYEXCEPTION_HPP
 #include <exception>

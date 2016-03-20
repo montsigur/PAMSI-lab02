@@ -1,3 +1,6 @@
+// Wojciech Michałowski
+// nr albumu 218705
+
 #include <string>
 #include "../zad4/kolejka.hpp"
 using namespace std;
