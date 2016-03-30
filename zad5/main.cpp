@@ -115,7 +115,8 @@ int main() {
       else
 	cout << dane << " nie jest palindromem." << endl;
 
-      ciag_znakow.wyczysc();      
+      ciag_znakow.wyczysc();
+      elem = NULL;
       break;
       
     case 10:
